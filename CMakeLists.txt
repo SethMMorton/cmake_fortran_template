@@ -59,7 +59,7 @@ SET(SRC ${CMAKE_SOURCE_DIR}/src)
 SET(LIB ${CMAKE_SOURCE_DIR}/lib)
 SET(BIN ${CMAKE_SOURCE_DIR}/bin)
 SET(SRCFOO ${SRC}/foo)
-SET(SRCBAR ${SRC}/barlib)
+SET(SRCBAR ${SRC}/bar)
 
 # Have the .mod files placed in the lib folder
 SET(CMAKE_Fortran_MODULE_DIRECTORY ${LIB})
@@ -69,11 +69,6 @@ ADD_SUBDIRECTORY(${SRCBAR} ${LIB})
 
 # The source for the FOO binary and have it placed in the bin folder
 ADD_SUBDIRECTORY(${SRCFOO} ${BIN})
-
-###################
-# Add extra targets
-###################
-
 
 # Add a distclean target to the Makefile
 ADD_CUSTOM_TARGET(distclean 
