@@ -22,8 +22,6 @@ SET(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake/Modules/")
 # Uncomment the below if you want the user to choose a parallelization library
 #OPTION(USE_MPI "Use the MPI library for parallelization" OFF)
 #OPTION(USE_OPENMP "Use OpenMP for parallelization" OFF)
-# Uncomment if the user might choose the MKL math libraries
-#OPTION(USE_MKL "Attempt to specifically locate the MKL libraries" OFF)
 
 # This INCLUDE statement executes code that sets the compile flags for DEBUG,
 # RELEASE, and TESTING.  You should  review this file and make sure the flags 
@@ -35,7 +33,7 @@ INCLUDE(${CMAKE_MODULE_PATH}/SetFortranFlags.cmake)
 #INCLUDE(${CMAKE_MODULE_PATH}/SetParallelizationLibrary.cmake)
 # Setup the LAPACK libraries.  This also takes care of peculiarities, such as
 # the fact the searching for MKL requires a C compiler, and that the results
-# are not stored in the cache.  It also fixes a bug with the Accelerate lib.
+# are not stored in the cache. 
 #INCLUDE(${CMAKE_MODULE_PATH}/SetUpLAPACK.cmake)
 
 # There is an error in CMAKE with this flag for pgf90.  Unset it
