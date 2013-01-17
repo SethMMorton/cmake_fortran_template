@@ -33,3 +33,14 @@ TARGET_LINK_LIBRARIES(${FOOEXE} ${BARLIB})
 #    INCLUDE_DIRECTORIES(${MPI_Fortran_INCLUDE_PATH})
 #    TARGET_LINK_LIBRARIES(${FOOEXE} ${MPI_Fortran_LIBRARIES})
 #ENDIF(USE_OPENMP)
+
+#####################################
+# Tell how to install this executable
+#####################################
+
+IF(WIN32)
+    SET(CMAKE_INSTALL_PREFIX "C:\\Program Files")
+ELSE()
+    SET(CMAKE_INSTALL_PREFIX /usr/local)
+ENDIF(WIN32)
+INSTALL(TARGETS ${FOOEXE} RUNTIME DESTINATION bin)
