@@ -14,6 +14,7 @@ ADD_EXECUTABLE(${FOOEXE} ${FOO_src})
 # Add the needed libraries and special compiler flags
 #####################################################
 
+# This links foo to the bar library
 TARGET_LINK_LIBRARIES(${FOOEXE} ${BARLIB})
 
 # Uncomment if you need to link to BLAS and LAPACK
