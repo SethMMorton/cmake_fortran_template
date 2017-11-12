@@ -1,3 +1,7 @@
+**NOTE** I no longer actively code in Fortran, nor use nor do I any longer use CMake. However, I do not want this repository to become
+a dead resource. If you have found that information in this template is out-of-date, or if there are better ways to approach solving
+these problems, *please* make a pull request.
+
 # CMake Fortran Template #
 
 I have found there is a dirth of information about how to create Fortran projects with CMake on the web.  For this reason, I have created a template project for Fortran using CMake as the build system.
