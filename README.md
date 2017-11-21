@@ -1,6 +1,5 @@
-**NOTE** I no longer actively code in Fortran, nor use nor do I any longer use CMake. However, I do not want this repository to become
-a dead resource. If you have found that information in this template is out-of-date, or if there are better ways to approach solving
-these problems, *please* make a pull request.
+**NOTE** I no longer actively code in Fortran, nor use nor do I any longer actively use CMake. However, I do not want this repository to become a dead resource. If you have found that information in this template is out-of-date, or if there are better ways to approach 
+solving these problems, *please* make a pull request.
 
 # CMake Fortran Template #
 
