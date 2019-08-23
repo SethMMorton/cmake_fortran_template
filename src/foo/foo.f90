@@ -3,6 +3,7 @@ Program foo
 !   FOO!!! This is the best foo implementatiton ever!
 
     use constants
+    use bar_module
 
     Implicit None
 

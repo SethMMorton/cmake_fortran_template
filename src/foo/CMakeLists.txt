@@ -1,47 +1,18 @@
-########################################
-# Set up how to compile the source files
-########################################
+add_executable(foo foo.f90 constants.f90)
+# find_package(bar)
+target_link_libraries(foo bar)
+source_group("Modules" FILES constants.f90)
 
-# Add the source files
-SET(FOO_src ${SRCFOO}/foo.f90
-            ${SRCFOO}/constants.f90
-)
+## for debugging in VS, foo cannot find the bar dll.  Let's manually copy it to the exe location
+add_custom_command(TARGET foo POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:bar> $<TARGET_FILE_DIR:foo>)
 
-# Define the executable in terms of the source files
-ADD_EXECUTABLE(${FOOEXE} ${FOO_src})
+## Uncomment if you need to link to LAPACK
+# include(SetUpLAPACK)
+# target_compile_options(foo PUBLIC ${LAPACK_LINKER_FLAGS})
+# target_link_libraries(foo ${LAPACK_LIBRARIES})
 
-#####################################################
-# Add the needed libraries and special compiler flags
-#####################################################
+## Uncomment if you need threads
+# find_package(Threads)
+# target_link_libraries(foo ${CMAKE_THREAD_LIBS_INIT})
 
-# This links foo to the bar library
-TARGET_LINK_LIBRARIES(${FOOEXE} ${BARLIB})
-
-# Uncomment if you need to link to BLAS and LAPACK
-#TARGET_LINK_LIBRARIES(${FOOEXE} ${BLAS_LIBRARIES}
-#                                ${LAPACK_LIBRARIES}
-#                                ${CMAKE_THREAD_LIBS_INIT})
-
-# Uncomment if you have parallization
-#IF(USE_OPENMP)
-#    SET_TARGET_PROPERTIES(${FOOEXE} PROPERTIES
-#                          COMPILE_FLAGS "${OpenMP_Fortran_FLAGS}"
-#                          LINK_FLAGS "${OpenMP_Fortran_FLAGS}")
-#ELSEIF(USE_MPI)
-#    SET_TARGET_PROPERTIES(${FOOEXE} PROPERTIES
-#                          COMPILE_FLAGS "${MPI_Fortran_COMPILE_FLAGS}"
-#                          LINK_FLAGS "${MPI_Fortran_LINK_FLAGS}")
-#    INCLUDE_DIRECTORIES(${MPI_Fortran_INCLUDE_PATH})
-#    TARGET_LINK_LIBRARIES(${FOOEXE} ${MPI_Fortran_LIBRARIES})
-#ENDIF(USE_OPENMP)
-
-#####################################
-# Tell how to install this executable
-#####################################
-
-IF(WIN32)
-    SET(CMAKE_INSTALL_PREFIX "C:\\Program Files")
-ELSE()
-    SET(CMAKE_INSTALL_PREFIX /usr/local)
-ENDIF(WIN32)
-INSTALL(TARGETS ${FOOEXE} RUNTIME DESTINATION bin)
+install(TARGETS foo DESTINATION bin)

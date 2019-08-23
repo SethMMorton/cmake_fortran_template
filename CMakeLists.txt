@@ -1,74 +1,56 @@
-# CMake project file for FOO
+cmake_minimum_required(VERSION 3.15.2)
 
-##################################################
-# Define the project and the depencies that it has
-##################################################
+## define the project
+project(foo_proj
+        VERSION 1.2.3
+        DESCRIPTION "Some project description"
+        HOMEPAGE_URL http://www.example.com
+        LANGUAGES Fortran)
 
-CMAKE_MINIMUM_REQUIRED(VERSION 2.8.5)
-PROJECT(FOO Fortran)
+################################################################################
+## Configure CMake project paths
+################################################################################
 
-# Set the FOO version
-SET(VERSION 1.2.3)
+## configure CMake module search paths that depend on the project
+## proj src dir is location of this file
+list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
+# list(APPEND CMAKE_MODULE_PATH ${PROJECT_BINARY_DIR})
 
-# Add our local modlues to the module path
-SET(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake/Modules/")
+## path for *.mod files
+## proj build dir is set by CMake user (usually build/)
+set(CMAKE_Fortran_MODULE_DIRECTORY ${PROJECT_BINARY_DIR}/mod)
 
-# Uncomment if it is required that Fortran 90 is supported
-#IF(NOT CMAKE_Fortran_COMPILER_SUPPORTS_F90)
-#    MESSAGE(FATAL_ERROR "Fortran compiler does not support F90")
-#ENDIF(NOT CMAKE_Fortran_COMPILER_SUPPORTS_F90)
+## define the project default install path, if necessary
+##
+## CMake's native defaults are:
+## Windows: C:\\Program Files
+## Else: /usr/local
+##
+## The lines below default to using this file's directory as install root
+if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
+  set(CMAKE_INSTALL_PREFIX ${PROJECT_SOURCE_DIR} CACHE PATH "Choose the installation directory" FORCE)
+endif(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
 
-# Set some options the user may choose
-# Uncomment the below if you want the user to choose a parallelization library
-#OPTION(USE_MPI "Use the MPI library for parallelization" OFF)
-#OPTION(USE_OPENMP "Use OpenMP for parallelization" OFF)
+################################################################################
+## Define project contents
+################################################################################
 
-# This INCLUDE statement executes code that sets the compile flags for DEBUG,
-# RELEASE, and TESTING.  You should  review this file and make sure the flags 
-# are to your liking.
-INCLUDE(${CMAKE_MODULE_PATH}/SetFortranFlags.cmake) 
-# Locate and set parallelization libraries.  There are some CMake peculiarities
-# taken care of here, such as the fact that the FindOpenMP routine doesn't know
-# about Fortran.
-#INCLUDE(${CMAKE_MODULE_PATH}/SetParallelizationLibrary.cmake)
-# Setup the LAPACK libraries.  This also takes care of peculiarities, such as
-# the fact the searching for MKL requires a C compiler, and that the results
-# are not stored in the cache. 
-#INCLUDE(${CMAKE_MODULE_PATH}/SetUpLAPACK.cmake)
+## Add the subproject subdirectories
+add_subdirectory(src/bar)
+add_subdirectory(src/foo)
 
-# There is an error in CMAKE with this flag for pgf90.  Unset it
-GET_FILENAME_COMPONENT(FCNAME ${CMAKE_Fortran_COMPILER} NAME)
-IF(FCNAME STREQUAL "pgf90")
-    UNSET(CMAKE_SHARED_LIBRARY_LINK_Fortran_FLAGS)
-ENDIF(FCNAME STREQUAL "pgf90")
+## for VS, set the startup target (the one that starts in debugger by default)
+set_property(DIRECTORY PROPERTY VS_STARTUP_PROJECT foo)
 
-############################################################
-# Define the actual files and folders that make up the build
-############################################################
+## If we had unit tests, we could define them here like below
+# set(FOO_BUILD_TESTS OFF CACHE BOOL "Build the unit tests")
+# if(FOO_BUILD_TESTS)
+#   enable_testing()
 
-# Define the executable name
-SET(FOOEXE foo)
+#   ## configure the test and its dependencies here like any other target
+#   add_executable(test_foo test.f90)
+#   target_link_libraries(test_foo bar)
 
-# Define the library name
-SET(BARLIB bar)
-
-# Define some directories
-SET(SRC ${CMAKE_SOURCE_DIR}/src)
-SET(LIB ${CMAKE_SOURCE_DIR}/lib)
-SET(BIN ${CMAKE_SOURCE_DIR}/bin)
-SET(SRCFOO ${SRC}/foo)
-SET(SRCBAR ${SRC}/bar)
-
-# Have the .mod files placed in the lib folder
-SET(CMAKE_Fortran_MODULE_DIRECTORY ${LIB})
-
-# The source for the BAR library and have it placed in the lib folder
-ADD_SUBDIRECTORY(${SRCBAR} ${LIB})
-
-# The source for the FOO binary and have it placed in the bin folder
-ADD_SUBDIRECTORY(${SRCFOO} ${BIN})
-
-# Add a distclean target to the Makefile
-ADD_CUSTOM_TARGET(distclean 
-    COMMAND ${CMAKE_COMMAND} -P ${CMAKE_SOURCE_DIR}/distclean.cmake
-)
+#   ## add the test target to the project
+#   add_test(NAME FooTests COMMAND test_foo)
+# endif()
