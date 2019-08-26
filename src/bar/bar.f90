@@ -2,8 +2,11 @@ module bar_module
   contains
   Subroutine bar(a, b)
     !DIR$ ATTRIBUTES DEFAULT, DLLEXPORT, DECORATE, ALIAS: 'bar' :: bar
+    !
+    ! The above comment line is actually a series of Intel compiler directives
+    ! useful for creating a shared library on all platforms
 
-  !   Performs the bar action
+    ! Performs the bar action
 
     Implicit None
 
