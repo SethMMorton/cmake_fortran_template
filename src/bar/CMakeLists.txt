@@ -36,4 +36,4 @@ if(UNIX)
 endif()
 
 ## disable incremental linking so we can get tracebacks from the DLL when called from Python.
-target_link_options(bar PRIVATE $<$<PLATFORM_ID:Windows>:$<$<OR:$<CONFIG:debug>,$<CONFIG:relwithdebinfo>>:/INCREMENTAL:NO>)
+target_link_options(bar PRIVATE $<$<PLATFORM_ID:Windows>:$<$<OR:$<CONFIG:debug>,$<CONFIG:relwithdebinfo>>:/INCREMENTAL:NO>>)

@@ -27,10 +27,10 @@ target_compile_options(foo PRIVATE
   $<$<CONFIG:DEBUG>:
     $<$<Fortran_COMPILER_ID:GNU>:-fbacktrace>
     $<$<Fortran_COMPILER_ID:G95>:-ftrace=full>
-    $<$<OR:$<Fortran_COMPILER_ID:Intel>,$<Fortran_COMPILER_ID:PGI>>
+    $<$<OR:$<Fortran_COMPILER_ID:Intel>,$<Fortran_COMPILER_ID:PGI>>:
       -traceback
     >
-    $<$<AND:$<Fortran_COMPILER_ID:Intel>,$<PLATFORM_ID:Windows>>
+    $<$<AND:$<Fortran_COMPILER_ID:Intel>,$<PLATFORM_ID:Windows>>:
       /traceback
     >
   >
