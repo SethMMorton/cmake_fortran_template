@@ -31,6 +31,9 @@ if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
   set(CMAKE_INSTALL_PREFIX ${PROJECT_SOURCE_DIR} CACHE PATH "Choose the installation directory" FORCE)
 endif(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
 
+## Set the project default build type
+include(DefaultBuildType)
+
 ################################################################################
 ## Define project contents
 ################################################################################
