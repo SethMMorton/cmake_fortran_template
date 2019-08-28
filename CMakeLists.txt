@@ -34,6 +34,9 @@ endif(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
 ## Set the project default build type
 include(DefaultBuildType)
 
+## Hide the configuration types list
+mark_as_advanced(CMAKE_CONFIGURATION_TYPES)
+
 ################################################################################
 ## Define project contents
 ################################################################################
