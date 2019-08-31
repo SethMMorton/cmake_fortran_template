@@ -109,3 +109,7 @@ or
     $ cmake .. -DUSE_MPI=ON
     
 Of course, you can also edit the template so that OpenMP or MPI is always used.
+
+## History ##
+
+Please see the [CHANGELOG.md](https://github.com/SethMMorton/cmake_fortran_template/blob/master/CHANGELOG.md) in this repository for how this template has changed over time.
