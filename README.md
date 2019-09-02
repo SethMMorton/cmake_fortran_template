@@ -59,3 +59,7 @@ As written, this template will allow you to specify one of three different sets 
 The default is RELEASE.  You can change this using:
 
     cmake .. -DCMAKE_BUILD_TYPE=DEBUG
+
+## History ##
+
+Please see the [CHANGELOG.md](https://github.com/SethMMorton/cmake_fortran_template/blob/master/CHANGELOG.md) in this repository for how this template has changed over time.
