@@ -1,5 +1,6 @@
 add_executable(foo foo.f90 constants.f90)
-# find_package(bar)
+install(TARGETS foo DESTINATION bin)
+
 target_link_libraries(foo bar)
 source_group("Module Sources" FILES constants.f90)
 
@@ -152,5 +153,3 @@ target_compile_options(foo PRIVATE
 #     -vec-report0
 #   >
 # )
-
-install(TARGETS foo DESTINATION bin)
